@@ -19,7 +19,7 @@ def conect(query, periodo,plantilla):
         header = ('Efector','Benficiario','Apellido','Nombre','Cuil','Periodo','Importe','Acreditado','Recaudado','Codigo')
         reportes(header, resultado, periodo)
     elif plantilla == 2:    
-        header = ('Concepto', 'Descripcion', 'Importe')
+        header = ('Concepto', 'Descripcion', 'Importe','C/D')
         reportes_plantilla(header, resultado, periodo)
     elif plantilla == 3:
         header = ('Efector','Benficiario','Apellido','Nombre','Cuil','Periodo','Importe','Acreditado','Recaudado','Codigo')
@@ -77,23 +77,23 @@ def reportes_plantilla_efectores(header, lista, periodo):
 def reportes_plantilla(header, lista, periodo):
    
     # Ejemplo de modificacion de hoja Excel
-    style0 = xlwt.easyxf('font: bold on')
+    # style0 = xlwt.easyxf('font: bold on')
     rb = open_workbook('example.xls',formatting_info=True)
     wb = copy(rb)
     ws = wb.get_sheet(0)
-
+    
     x = 8
     for datos in lista:
-        print datos
-        if datos[3] =='D':
-            daton=(datos[0],datos[1],'',datos[2])
-        else:
-            daton=(datos[0],datos[1],datos[2])   
-        y = 0
-        for dato in daton:
+        if dato[3]=='D':
+            dato1=[dato[0],dato[1], ' ' ,dato[2]]
+            print dato1
+        y=0
+        for dato in datos:
+            print dato
             ws.write(x, y, dato)
             y += 1
         x += 1
+        
     
 
     #ws.write(0,0,"I'm only changing cell A1")
