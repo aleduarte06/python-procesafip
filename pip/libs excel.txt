@@ -1,0 +1,7 @@
+- xlwt: utilizada para escribir excel
+- xlrd: utilizada para modificar excel
+- xlutils: require de las anteriores y son una serie de utilidades que nos permiten entre otras cosas,
+copiar o modificar una excel previa
+
+registrar las variablels de entorno
+SVN\bin;C:\Python27;C:\Python27\Scripts

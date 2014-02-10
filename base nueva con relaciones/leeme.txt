@@ -1,0 +1,13 @@
+aca estan las bases:
+
+la base que dice:
+osmtt_online  : es la que acabo de bajar del server online. para empesar con la importacion final
+
+os111308      : es la nueba base de datos a la que vamos a insertar los datos de la base vieja "osmtt_online"
+
+
+las otras dos e¡son backups de ejemplos con los que estube probando los scripts de importacion.
+
+
+
+
