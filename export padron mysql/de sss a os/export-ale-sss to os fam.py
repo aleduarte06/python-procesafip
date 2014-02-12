@@ -9,7 +9,7 @@ import datetime
 def conect():
     conexion = mysql.connect(user= config.user_a, password= config.passwd_a, host= config.host_a, db= config.db_a)
     cursor = conexion.cursor()
-    query = """SELECT * FROM alta_tit group by c7 """
+    query = """SELECT * FROM alta_fam group by c7 """
     cursor.execute(query)
     resultado = cursor.fetchall()
     print resultado
@@ -45,7 +45,7 @@ def main():
         #print persona
         calle = persona[12]
         #print calle
-        query = """INSERT INTO os111308_old.titulares(cod_os,cuit_empresa,cuil_titular,parentesco,cuil,tipo_doc,nro_doc,apellido,
+        query = """INSERT INTO os111308_old.familiares(cod_os,cuit_empresa,cuil_titular,parentesco,cuil,tipo_doc,nro_doc,apellido,
                                                         nombre,sexo_id,estado_civil,fecha_nac,nacionalidad_id,calle,nro,piso,
                                                         depto,localidad,codigo_postal,provincia_id,tipo_domicilio,situacion_revista_id,incapacidad,tipo_beneficiario,
                                                         ingreso_os,mov,fecha_mov)VALUES(

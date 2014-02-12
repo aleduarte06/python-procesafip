@@ -16,15 +16,14 @@ def log(txt,i,mes_carga):
 	guardar.write('%s %s %s ,%s %s'%(txt,i,mes_carga,fecha,hora))
 	guardar.close
 def a(i,quincena,mes_carga):
+	print os.getcwd()
 	conexion = mysql.connect(user=cn.user_a, password=cn.passwd_a, host=cn.host_a, db=cn.db_a)
 	cursor = conexion.cursor() 
 	
 	n=0
 	archivo = open(i,'r')
 	header = archivo.readline()
-	if header[0:8] == "HFTRANSF":
-		
-
+	if header[0:8] == "HFTRANSF":	
 		while True:
 			linea =  archivo.readline()
 			if linea[0:2] == "TN":
@@ -79,7 +78,7 @@ def b(i,quincena,mes_carga):
 	
 
 def nominatividad_mysql(mes_carga):
-	os.chdir('20%s'%mes_carga[2:4])
+	os.chdir('20%s'%mes_carga[2:4])	
 	os.chdir(mes_carga[0:2])
 	archivos = glob.glob("OS1113*.txt")
 	for i in archivos:
@@ -150,30 +149,30 @@ def autogestion_mysql(mes_carga):
 		archivo.close
 		os.chdir('../../')
 		return 1
-def suma_mysql(mes_carga):	
-		os.chdir('20%s'%mes_carga[2:4])
-		os.chdir(mes_carga[0:2]) 		
-		conexion = mysql.connect(user=cn.user_a, password=cn.passwd_a, host=cn.host_a, db=cn.db_a)
-		cursor = conexion.cursor()
-		
-		n=0
-		archivos = glob.glob("SUMA_OS*.txt")
-		for i in archivos:
-			archivo = open(i,'r')
-			header = archivo.readline()
-			if header[0:6] == "HFSUMA":
-					linea =  archivo.readline()
-					if linea[0:8] == "TFABTEMP":
-						break
-					query="""INSERT INTO `afip_suma` (`renos`, `periodo`, `cant_benef`, `importe_tranf`, `capita`, `art_2_inc_a`, 
-						`art_2_inc_b`, `art_2_inc_c`, `art_3_ajuste`, `total_subsidio`, `area_reservada`)
-					VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')""" %(linea[0:6],linea[6:12],linea[12:19],linea[19:34], linea[34:49],linea[49:64],linea[64:79],linea[79:94], linea[94:110],linea[110:125],linea[125:151]) 
-					cursor.execute(query)
-					conexion.commit()
-					n+=1
-					print '\r%s' % n,
-					sys.stdout.flush()					
-		print "\n se han procesado  %s registros" %n 			
-		archivo.close
-		os.chdir('../../')
-		
+def suma_mysql(mes_carga):
+	os.chdir('20%s'%mes_carga[2:4])
+	os.chdir(mes_carga[0:2]) 		
+	conexion = mysql.connect(user=cn.user_a, password=cn.passwd_a, host=cn.host_a, db=cn.db_a)
+	cursor = conexion.cursor()
+	
+	n=0
+	archivos = glob.glob("SUMA_OS*.txt")
+	for i in archivos:
+		archivo = open(i,'r')
+		header = archivo.readline()
+		if header[0:6] == "HFSUMA":
+				linea =  archivo.readline()
+				if linea[0:8] == "TFABTEMP":
+					break
+				query="""INSERT INTO `afip_suma` (`renos`, `periodo`, `cant_benef`, `importe_tranf`, `capita`, `art_2_inc_a`, 
+					`art_2_inc_b`, `art_2_inc_c`, `art_3_ajuste`, `total_subsidio`, `area_reservada`)
+				VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')""" %(linea[0:6],linea[6:12],linea[12:19],linea[19:34], linea[34:49],linea[49:64],linea[64:79],linea[79:94], linea[94:110],linea[110:125],linea[125:151]) 
+				cursor.execute(query)
+				conexion.commit()
+				n+=1
+				print '\r%s' % n,
+				sys.stdout.flush()					
+	print "\n se han procesado  %s registros" %n 			
+	archivo.close
+	os.chdir('../../')
+	
