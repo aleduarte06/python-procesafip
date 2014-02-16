@@ -5,7 +5,7 @@ conexion = mysql.connect(user= config.user_a, password= config.passwd_a, host= c
 cursor = conexion.cursor()
 
 def main():
-	query = "SELECT* from altasbajas WHERE cuil = 20076203149"
+	query = "SELECT* from altasbajas WHERE cuil = 20362689717"
 	
 	opcion = input('>')
 	
@@ -17,7 +17,7 @@ def main():
 			print 'No es valido'
 			print e 
 			main()
-	print a<0
+	print  a<0
 	return a<0
 
 	

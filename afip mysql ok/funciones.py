@@ -12,7 +12,7 @@ def log(txt,i,mes_carga):
 	fecha = str(ahora.month)+"-"+str(ahora.day)+"-"+str(ahora.year)
 	hora = str(ahora.hour)+":"+str(ahora.minute)+":"+str(ahora.second)
 	
-	guardar = open('../../log.txt','a')
+	guardar = open('../../../log.txt','a')
 	guardar.write('%s %s %s ,%s %s'%(txt,i,mes_carga,fecha,hora))
 	guardar.close
 def a(i,quincena,mes_carga):
@@ -175,4 +175,73 @@ def suma_mysql(mes_carga):
 	print "\n se han procesado  %s registros" %n 			
 	archivo.close
 	os.chdir('../../')
+def relaciones_mysql(mes_carga):
+		os.chdir('20%s'%mes_carga[2:4])
+		os.chdir(mes_carga[0:2])
+		os.chdir('Relaciones Laborales') 
+		print os.getcwd()
+		conexion = mysql.connect(user=cn.user_a, password=cn.passwd_a, host=cn.host_a, db=cn.db_a)
+		cursor = conexion.cursor()
+		
+		n=0
+		archivos = glob.glob("Relaciones_Laborales_*.txt")
+		for i in archivos:
+			archivo = open(i,'r')
+			header = archivo.readline()
+			if header[0:18] == "HFABTEMP-DGI111308":
+				while True:
+					linea =  archivo.readline()
+					if linea[0:8] == "TFABTEMP":
+						break
+					query="""INSERT INTO `afip_relaciones` (`cuit`, `cuil`, `apellido_nombre`, `fecha_inicio_relacion`, `fecha_fin_relacion`, `renos`, `clave_alta_registro`,
+					 `fecha_clave_registro`, `separador`, `hora_clave_alta`, `clave_baja_registro`, `fecha_clave_baja`, `separor2`, `hora_clave_baja`, `codigo_contrato`, `marca_trabajador_agro`,
+					  `regimen_aportes`, `codigo_sit_baja`, `filler1`, `fecha_mov`, `separador3`, `hora_mov`, `codigo_mov`, `rem_bruta`, `cod_modalidad_liq`, `cod_sucursal_exp`, `cod_actividad`,
+					   `cod_puesto`, `fecha_telegrama_renuncia`, `filler2`, `marca_rectificacion`, `area_reservada`, `fecha`) VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',
+					   \'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')""" %(linea[0:11],
+					   linea[11:22],linea[22:77],linea[77:87],linea[87:97],linea[97:103],linea[103:123],linea[123:133],linea[133:134],linea[134:139],linea[139:159],linea[159:169],linea[169:170],linea[170:175],
+					   linea[175:178],linea[178:180],linea[180:182],linea[182:184],linea[184:189],linea[189:199],linea[199:200],linea[200:208],linea[208:210],linea[210:221],linea[221:222],linea[222:227],
+					   linea[227:233],linea[233:237],linea[237:247],linea[247:251],linea[251:252],linea[252:300],header[22:30])
+				
+					cursor.execute(query)
+					conexion.commit()
+					n+=1
+					print '\r%s' % n,
+					sys.stdout.flush()
+		txt="\n se han procesado  %s registros" %n		
+		print txt 
+		log(txt, i, mes_carga)
+		archivo.close
+		os.chdir('../../../')
+		return 1	
+def domicilio_mysql(mes_carga):
+
+
+	os.chdir('20%s'%mes_carga[2:4])
+	os.chdir(mes_carga[0:2])
+	d=os.listdir(os.getcwd())
+	os.chdir('%s'%d[0]) 
+	conexion = mysql.connect(user=cn.user_a, password=cn.passwd_a, host=cn.host_a, db=cn.db_a)
+	cursor = conexion.cursor()
 	
+	n=0
+	archivos = glob.glob("Domicilios_Explotacion*.txt")
+	for i in archivos:
+		archivo = open(i,'r')
+		header = archivo.readline()
+		if header[0] == 'H':
+			while True:
+				linea =  archivo.readline()
+				if linea[0] == "T":
+					break	
+				query = 'INSERT INTO afip_domicilio(`cuit`, `cod_mov`, `tipo_externo`, `calle`, `nro`, `torre`, `bloque`, `piso`,`departamento`, `cp`, `localidad`, `provincia`, `sucursal`, `actividad`, `fecha_hora_mov`, `area_reservada`, fecha) VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' %(linea[0:11],linea[11:13],linea[13:14],linea[14:74],linea[74:80],linea[80:85],linea[85:90],linea[90:95],linea[95:100],linea[100:108],linea[108:168],linea[168:170],linea[170:175],linea[175:181],linea[181:207],linea[207:250],header[9:17])
+				cursor.execute(query)
+				conexion.commit()
+				n+=1
+				print '\r%s' % n,
+				sys.stdout.flush()
+	txt="\n se han procesado  %s registros" %n		
+	print txt 
+	log(txt, i, mes_carga)
+	archivo.close
+	os.chdir('../../../')
+	return 1	

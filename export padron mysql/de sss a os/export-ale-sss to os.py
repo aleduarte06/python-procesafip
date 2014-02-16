@@ -45,7 +45,7 @@ def main():
         #print persona
         calle = persona[12]
         #print calle
-        query = """INSERT INTO os111308_old.titulares(cod_os,cuit_empresa,cuil_titular,parentesco,cuil,tipo_doc,nro_doc,apellido,
+        query = """INSERT INTO titulares(cod_os,cuit_empresa,cuil_titular,parentesco,cuil,tipo_doc,nro_doc,apellido,
                                                         nombre,sexo_id,estado_civil,fecha_nac,nacionalidad_id,calle,nro,piso,
                                                         depto,localidad,codigo_postal,provincia_id,tipo_domicilio,situacion_revista_id,incapacidad,tipo_beneficiario,
                                                         ingreso_os,mov,fecha_mov)VALUES(
@@ -59,9 +59,9 @@ def main():
                                                         fecha , 1,fecha1)
         print query
                
-        querymov = "INSERT INTO os111308_old.altasbajas(cuil,accion,motivo,fecha) values(\'%s\',%s,\'%s\',\'%s\')" % (persona[2],1, 'Alta os',fecha1)
+        querymov = "INSERT INTO altasbajas(cuil,accion,motivo,fecha) values(\'%s\',%s,\'%s\',\'%s\')" % (persona[2],1, 'Alta os',fecha1)
 
-        querytel = "INSERT INTO os111308_old.telefono(cuil,telefono,tipo_telefono)values(\'%s\',\'%s\',%s)" % (persona[2], persona[20], 1)
+        querytel = "INSERT INTO telefono(cuil,telefono,tipo_telefono)values(\'%s\',\'%s\',%s)" % (persona[2], persona[20], 1)
         
         cursor.execute(query)
         conexion.commit()

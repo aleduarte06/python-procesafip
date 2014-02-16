@@ -8,6 +8,9 @@ def main():
 	print "2) Nomina_mysql"
 	print "3) Autogestion_mySQL"
 	print "4) suma_mysql"
+	print '#############################'
+	print "8) Domicilio_mysql"
+	print "9) Relaciones_mysql"
 	print "\n0) Salir"
 	
 	opcion = input('>')
@@ -61,5 +64,28 @@ def main():
 		if a==1:
 			print os.getcwd()
 			main()				
-		
+	elif opcion == 8:
+		print "Ingrese mes carga"
+		mes_carga = raw_input('>')
+		try:
+			a=funciones.domicilio_mysql(mes_carga)
+		except Exception, e:
+			print 'No es valido'
+			print e
+			main()					
+		if a==1:
+			print os.getcwd()
+			main()		
+	elif opcion == 9:
+		print "Ingrese mes carga"
+		mes_carga = raw_input('>')
+		try:
+			a=funciones.relaciones_mysql(mes_carga)
+		except Exception, e:
+			print 'No es valido'
+			print e
+			main()					
+		if a==1:
+			print os.getcwd()
+			main()
 main()

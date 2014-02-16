@@ -1,10 +1,10 @@
 #------ Configuraciones de bd --------#
 
 #configuracion host 'a' es de donde tomamos los datos
-host_a = '192.168.1.41'
+host_a = '192.168.1.37'
 user_a = 'aleduarte'
 passwd_a ='aleduarte'
-db_a = 'os111308_old'
+db_a = 'test2'
 
 #configuracion host 'b' es a donde almacenamos los datos
 
